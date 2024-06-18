@@ -1,0 +1,29 @@
+ID,secondary_ID,name,description,pi_firstname,pi_lastname,URI
+TEST,TEST,TEST Project,,,,/data/projects/TEST
+COLI,Coliseum,COLISEUM,,,,/data/projects/COLI
+Providence,Providence,Providence Scans,,,,/data/projects/Providence
+WashU,WUSTL,WUSTL Scans,,,,/data/projects/WashU
+Helsinki,Helsinki,Helsinki Scans,,,,/data/projects/Helsinki
+CTP,Perfusion,Perfusion Imaging,,,,/data/projects/CTP
+SAH,SAH,Subarachnoid Hemorrhage,Imaging of patients with subarachnoid hemorrhage,,,/data/projects/SAH
+OSU,OSU,Ohio State,Imaging from OSU Stroke project,,,/data/projects/OSU
+BJH,BJH LVO Stroke,Barnes-Jewish Hospital LVO Strokes,,,,/data/projects/BJH
+YaleLVO,Yale LVO Hemodynamics,Yale LVO Stroke Hemodynamics and Cerebral Edema,,,,/data/projects/YaleLVO
+dAVFTest,dAVF test,dAVF test,Test for a dAVF repository,Rano,Chatterjee,/data/projects/dAVFTest
+ICH,BJH ICH,BJH Intracerebral Hemorrhage,Cohort of all intracerebral hemorrhages admitted to Neuro-ICU at BJH from 2017 onward,,,/data/projects/ICH
+WATERSHED,WATERSHED,Pathophysiology and Imaging Biomarkers in Cerebral Watershed Infraction,,Peter,Kang,/data/projects/WATERSHED
+MGBBMC,MGBBMC,MGB BMC Stroke,,Charlene,Ong,/data/projects/MGBBMC
+LUNGATELECTASIS,LUNG ATELECTASIS,Atelectasis quantification in a donor lungs,,,,/data/projects/LUNGATELECTASIS
+MGH,MGH Stroke,MGH Stroke,Acute ischemic stroke patients from MGH ,,,/data/projects/MGH
+EPICH,EPICH,Cerebral Edema in Intracerebral Hemorrhage,,,,/data/projects/EPICH
+BM,Del Mar,GENISIS Del Mar,,,,/data/projects/BM
+TEST_AUTUMN,TEST_AUTUMN,TEST_AUTUMN,TEST_AUTUMN,atul,kumar,/data/projects/TEST_AUTUMN
+IBIO,iBio,iBioStroke,,,,/data/projects/IBIO
+MOORE_TEST,MOORE_TEST,MOORE_TEST,,,,/data/projects/MOORE_TEST
+QUIP,QUIP,BMC QUIP Aim2,,Charlene,Ong,/data/projects/QUIP
+VHUH,GENISIS VHUH,GENISIS Vel D&apos;Hebron Hospital,,,,/data/projects/VHUH
+GTH,GENISIS GermansTrias,GENISIS Germans Trias Hospital,,,,/data/projects/GTH
+Reface_test,Reface_test,Reface_test,Reface_test (mri_deface),,,/data/projects/Reface_test
+SANTP,SANTP,Sant Pau,,Rajat,Dhar,/data/projects/SANTP
+Krakow,Krakow,GENISIS Krakow,,,,/data/projects/Krakow
+Albacete,Albacete,Albacete Hospital,Scans from GENISIS and other projects from Albacete hospital in Spain,Rajat,Dhar,/data/projects/Albacete

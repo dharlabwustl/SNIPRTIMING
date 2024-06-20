@@ -13,7 +13,7 @@ import requests
 from urllib.parse import urlparse
 username = 'atulkumar'
 password = 'Mrityor1!'
-host_name='https://snipr.wustl.edu'
+host_name='https://snipr02.nrg.wustl.edu' #'https://snipr.wustl.edu'
 URI=f'/data/experiments/'
 
 
@@ -58,16 +58,16 @@ for each_row_id, each_row in ibio_session_df.iterrows():
                 ibio_session_df.loc[ibio_session_df['ID'].astype(str)==str(each_row['ID']),'SELECTED_SCAN_ID']=str(temp_df.at[0,'ID'])
                 
             
-        # break
+        break
     except:
         pass
-ibio_session_df.to_csv('ibio_session_df_modified.csv',index=False)
+ibio_session_df.to_csv('ibio_session_df_modified1.csv',index=False)
 
 
 # In[ ]:
 
 
-print(r.json())
+# print(r.json())
 
 
 # # In[ ]:

@@ -9,11 +9,13 @@ import requests
 import pandas as pd
 import dateutil.parser
 import os,subprocess
-import requests
+import requests,time
 from urllib.parse import urlparse
-username = 'atulkumar'
-password = 'Mrityor1!'
-host_name='https://snipr02.nrg.wustl.edu' ##'https://snipr.wustl.edu'
+username = os.environ['XNAT_USER']#
+password =os.environ['XNAT_PASS'] #
+# username = ''
+# password = ''
+host_name='https://snipr02.nrg.wustl.edu' #'https://snipr.wustl.edu' ##
 URI=f'/data/experiments/'
 
 
@@ -36,46 +38,69 @@ files_ext=['_4DL_seg.nii.gz','_normalized.nii.gz_csf_10.nii.gz','_normalized.nii
 # ibio_session_df['SELECTED_SCAN_ID']=""
 dir_to_save='./'
 brain_axial_found=0
+counter=0
 for each_row_id, each_row in ibio_session_df.iterrows():
     # print(each_row['URI'])
     try:
 
-        # filename = os.path.basename(urlparse(url).path)
+    #     # filename = os.path.basename(urlparse(url).path)
         scans_metadata=get_metadata_session(str(each_row['ID']))
+        # print(scans_metadata)
         scans_metadata_df=pd.read_json(json.dumps(scans_metadata))
+        # print(scans_metadata_df)
         for each_scan_id, each_scan in scans_metadata_df.iterrows():
             for resource_dir in resource_dirs:
                 resource_metadata=get_resourcefiles_metadata(str(each_scan['URI']),resource_dir)
                 if len(resource_metadata)> 0:
+                    # print(len(resource_metadata))
+                    # print(resource_metadata)
                     brain_axial_found=1
+                    # print(resource_metadata)
+                    # break
                     try:
                         resource_metadata_df=pd.read_json(json.dumps(resource_metadata))
                         print(resource_metadata_df)
-                        if resource_metadata_df.shape[0] >0:
+
+                        if len(resource_metadata_df)>0:
                             for file_ext in files_ext:
+                                print(file_ext)
+                                print(resource_metadata_df['URI'])
                                 this_row=resource_metadata_df[resource_metadata_df['URI'].str.contains(file_ext)]
-                                if this_row.shape[0] > 0:
-                                    print(this_row.shape)
+                                print(this_row)
+                                if len(this_row) > 0:
+                                    print(len(this_row))
+
+
                                     this_row=this_row.reset_index()
                                     url = host_name+str(str(this_row.at[0,'URI'])) #'http://example.com/blueberry/download/somefile.jpg'
                                     response = requests.head(url)
                                     last_modified = response.headers.get('Last-Modified')
+                                    time.sleep(10)
+                                    print("host name-{}::filename-{}::Datetime stamp-{}".format(host_name,os.path.basename(url),last_modified))
+
                                     if last_modified:
                                         last_modified = dateutil.parser.parse(last_modified)
                                         ibio_session_df.loc[ibio_session_df['ID'].astype(str)==str(each_row['ID']),f'{file_ext}_TIMESTAMP']=last_modified
                                         print(last_modified)
+                                        ibio_session_df.to_csv('ibio_session_df_'+'processing_files_time_stamp_1'+'.csv',index=False)
+
                                         # break
+                            # break
+    #     #
                     except:
                         pass
-                else:
-                    break
+    #     #         else:
+    #     #             break
             if brain_axial_found==1:
                 brain_axial_found=0
                 break
-            
+    #     # counter=counter+1
+    #     # if counter>0:
+    #
         # break
     except:
         pass
+
 ibio_session_df.to_csv('ibio_session_df_'+'processing_files_time_stamp'+'.csv',index=False)
 
 

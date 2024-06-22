@@ -23,26 +23,28 @@ URI=f'/data/experiments/'
 
 
 ## session list:
-project="IBIO"
-command=f"curl  -u   $XNAT_USER:$XNAT_PASS  -X GET   $XNAT_HOST/data/projects/{project}/experiments/?format=csv  > {project}_sessions.csv"
-subprocess.call(command,shell=True)
+project="ICH"
+# command=f"curl  -u   $XNAT_USER:$XNAT_PASS  -X GET   $XNAT_HOST/data/projects/{project}/experiments/?format=csv  > {project}_sessions.csv"
+# subprocess.call(command,shell=True)
 
 
 # In[ ]:
 
 
-ibio_session_df=pd.read_csv(f'{project}_sessions.csv')
-resource_dirs=['EDEMA_BIOMARKER','PREPROCESS_SEGM','MASKS']
-files_ext=['_4DL_seg.nii.gz','_normalized.nii.gz_csf_10.nii.gz','_normalized.nii.gz_csf_10.nii.gz','_infarct_auto_removesmall.nii.gz','pdf']
+ibio_session_df=pd.read_csv('sessionsICH_ANALYTICS_STEP2_20240601111121.csv') #f'{project}_sessions.csv')
+ibio_session_df = ibio_session_df[ibio_session_df['CSV_FILE_PATH'].str.len() > 10]
+resource_dirs=['ICH_PHE_QUANTIFICATION','PREPROCESS_SEGM','MASKS']
+files_ext=['_4DL_seg.nii.gz','_normalized.nii.gz_csf_10.nii.gz','_normalized.nii.gz_csf_10.nii.gz','_class2.nii.gz','pdf']
 # ibio_session_df[f'{resource_dir}_TIMESTAMP']=""
 # ibio_session_df['SELECTED_SCAN_ID']=""
 dir_to_save='./'
 brain_axial_found=0
 counter=0
+ibio_session_df=ibio_session_df[ibio_session_df['xsiType'].str.contains(':ct')]
 for each_row_id, each_row in ibio_session_df.iterrows():
     # print(each_row['URI'])
     try:
-
+        
     #     # filename = os.path.basename(urlparse(url).path)
         scans_metadata=get_metadata_session(str(each_row['ID']))
         # print(scans_metadata)
@@ -75,14 +77,14 @@ for each_row_id, each_row in ibio_session_df.iterrows():
                                     url = host_name+str(str(this_row.at[0,'URI'])) #'http://example.com/blueberry/download/somefile.jpg'
                                     response = requests.head(url)
                                     last_modified = response.headers.get('Last-Modified')
-                                    time.sleep(10)
+                                    time.sleep(20)
                                     print("host name-{}::filename-{}::Datetime stamp-{}".format(host_name,os.path.basename(url),last_modified))
 
                                     if last_modified:
                                         last_modified = dateutil.parser.parse(last_modified)
                                         ibio_session_df.loc[ibio_session_df['ID'].astype(str)==str(each_row['ID']),f'{file_ext}_TIMESTAMP']=last_modified
                                         print(last_modified)
-                                        ibio_session_df.to_csv('ibio_session_df_'+'processing_files_time_stamp_1'+'.csv',index=False)
+                                        ibio_session_df.to_csv(project+'_session_df_'+'processing_files_time_stamp_1'+'.csv',index=False)
 
                                         # break
                             # break
@@ -101,7 +103,7 @@ for each_row_id, each_row in ibio_session_df.iterrows():
     except:
         pass
 
-ibio_session_df.to_csv('ibio_session_df_'+'processing_files_time_stamp_2'+'.csv',index=False)
+ibio_session_df.to_csv(project+'o_session_df_'+'processing_files_time_stamp_2'+'.csv',index=False)
 
 
 # In[ ]:

@@ -61,7 +61,7 @@ for each_row_id, each_row in ibio_session_df.iterrows():
         break
     except:
         pass
-ibio_session_df.to_csv('ibio_session_df_modified1.csv',index=False)
+ibio_session_df.to_csv(project+'_session_df_modified1.csv',index=False)
 
 
 # In[ ]:
